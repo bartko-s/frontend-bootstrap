@@ -31,13 +31,13 @@ module.exports = function (isDevelopment) {
                 {
                     test: /\.css$/,
                     loader: isDevelopment ?
-                        'style!css!postcss-loader?sourceMap'
+                        'style!css?sourceMap!postcss-loader'
                         : ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
                 },
                 {
                     test: /\.scss$/,
                     loader: isDevelopment ?
-                        'style!css!sass!postcss-loader?sourceMap'
+                        'style!css?sourceMap!sass?sourceMap!postcss-loader'
                         : ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader!postcss-loader')
                 },
                 {
