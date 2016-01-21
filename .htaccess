@@ -27,6 +27,19 @@ ExpiresActive on
     ExpiresByType image/vnd.microsoft.icon              "access plus 1 week"
     ExpiresByType image/x-icon                          "access plus 1 week"
 
+     # Media files
+        ExpiresByType audio/ogg                             "access plus 1 month"
+        ExpiresByType image/bmp                             "access plus 1 month"
+        ExpiresByType image/gif                             "access plus 1 month"
+        ExpiresByType image/jpeg                            "access plus 1 month"
+        ExpiresByType image/pjpeg                            "access plus 1 month"
+        ExpiresByType image/png                             "access plus 1 month"
+        ExpiresByType image/svg+xml                         "access plus 1 month"
+        ExpiresByType image/webp                            "access plus 1 month"
+        ExpiresByType video/mp4                             "access plus 1 month"
+        ExpiresByType video/ogg                             "access plus 1 month"
+        ExpiresByType video/webm                            "access plus 1 month"
+
     # Web fonts
         # Embedded OpenType (EOT)
         ExpiresByType application/vnd.ms-fontobject         "access plus 1 month"
