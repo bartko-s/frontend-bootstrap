@@ -41,7 +41,7 @@ module.exports = function (isDevelopment) {
                         : ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader!postcss-loader')
                 },
                 {
-                    test: /\.(gif|jpg|png|woff|woff2|eot|ttf|svg)$/,
+                    test: /\.(gif|jpg|jpeg|png|woff|woff2|eot|ttf|svg)$/,
                     loader: 'url-loader?limit=100000'
                 }
             ]
@@ -49,11 +49,12 @@ module.exports = function (isDevelopment) {
         output: {
             filename: '[name].bundle.js',
             path: path.join(__dirname, '../../../../build/'),
-            publicPath: 'http://localhost:8080/build/'
+            publicPath: isDevelopment ? 'http://localhost:8080/build/' : '/build/'
         },
         plugins: isDevelopment ?
             [
                 new webpack.optimize.OccurenceOrderPlugin(),
+                new webpack.optimize.DedupePlugin(),
                 new webpack.HotModuleReplacementPlugin(),
                 new webpack.NoErrorsPlugin()
             ] : [
