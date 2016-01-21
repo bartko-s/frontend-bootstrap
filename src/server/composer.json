@@ -1,0 +1,13 @@
+{
+    "require": {
+    },
+    "autoload": {
+        "psr-0": {
+            "App\\": "src/"
+        },
+        "classmap": [
+            "./src/"
+        ]
+    }
+}
+

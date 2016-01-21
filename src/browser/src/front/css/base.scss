@@ -1,0 +1,23 @@
+@import "1.scss";
+@import "2.scss";
+@import "3.css";
+
+/*** base ***/
+body {
+    background-color: #dddddd;
+}
+
+.circle {
+    background-color: #6699cc;
+    border-radius: 75px;
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    line-height: 150px;
+    font-size: 40px;
+}
+
+.order-test {
+    background-color: #006600;
+    color: #ffffff;
+}
