@@ -8,6 +8,11 @@
         "classmap": [
             "./src/"
         ]
+    },
+    "scripts": {
+        "optimize-autoloader": [
+            "composer dumpautoload -o"
+        ]
     }
 }
 

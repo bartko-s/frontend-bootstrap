@@ -1,10 +1,11 @@
-/*** 3.css ***/
+/*** 3.scss ***/
 .order-test {
-    width: 150px;
+    min-width: 150px;
     height: 35px;
     border: 1px solid black;
     line-height: 35px;
     text-align: center;
     margin: 15px 0;
     background-color: red;
+    display: inline-block;
 }
