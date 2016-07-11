@@ -54,7 +54,6 @@ module.exports = function (isDevelopment) {
         plugins: isDevelopment ?
             [
                 new webpack.optimize.OccurenceOrderPlugin(),
-                new webpack.optimize.DedupePlugin(),
                 new webpack.HotModuleReplacementPlugin(),
                 new webpack.NoErrorsPlugin()
             ] : [

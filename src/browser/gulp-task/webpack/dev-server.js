@@ -10,7 +10,7 @@ module.exports = function(webpackConfig) {
     var compiler = webpack(webpackConfig);
 
     var server = new WebpackDevServer(compiler, {
-      contentBase: path.join(__dirname, '/../../src/client'),
+      contentBase: 'http://127.0.0.1:5000',
       publicPath: webpackConfig.output.publicPath,
       hot: true,
       stats: {
