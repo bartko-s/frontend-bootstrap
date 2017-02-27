@@ -1,7 +1,7 @@
 'use strict';
 
-var gulpUtil = require('gulp-util');
-var webpack = require('webpack');
+const gulpUtil = require('gulp-util');
+const webpack = require('webpack');
 
 module.exports = function(webpackConfig) {
   return function(callback) {

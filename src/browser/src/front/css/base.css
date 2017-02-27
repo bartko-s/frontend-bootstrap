@@ -23,3 +23,9 @@ body {
     background-color: #006600;
     color: #ffffff;
 }
+
+.ico {
+    width: 100px;
+    height: 100px;
+    background-image: url('../img/ico.jpg');
+}

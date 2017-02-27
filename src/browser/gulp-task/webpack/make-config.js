@@ -1,16 +1,29 @@
-'use strict';
+ 'use strict';
 
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var autoprefixer = require('autoprefixer');
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
+
+const postcss_loader = {
+    loader: 'postcss-loader',
+    options: {
+        plugins: function () {
+            return [
+                autoprefixer({
+                    browsers: ['last 3 versions']
+                })
+            ]
+        }
+    }
+};
 
 module.exports = function (isDevelopment) {
     return {
         cache: isDevelopment,
-        debug: isDevelopment,
-        devtool: isDevelopment ? 'eval-source-map' : '',
+        devtool: isDevelopment ? 'eval-source-map' : false,
         entry: {
             index: isDevelopment ?
                 [
@@ -18,33 +31,47 @@ module.exports = function (isDevelopment) {
                     'webpack/hot/dev-server',
                     path.join(__dirname, '../../src/front/app.js')
                 ] : [
-                path.join(__dirname, '../../src/front/app.js')
-            ]
+                    path.join(__dirname, '../../src/front/app.js')
+                ]
         },
         module: {
-            loaders: [
+            rules: [
                 {
                     test: /\.js$/,
-                    exclude: path.join(__dirname, '../../node_modules/'),
-                    loader: "babel-loader"
+                    exclude: /node_modules/,
+                    use: ['babel-loader']
                 },
                 {
-                    test: /\.css$/,
-                    loader: isDevelopment ?
-                        'style!css?sourceMap!postcss-loader'
-                        : ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
-                },
-                {
-                    test: /\.scss$/,
-                    loader: isDevelopment ?
-                        'style!css?sourceMap!sass?sourceMap!postcss-loader'
-                        : ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader!postcss-loader')
+                    test: /\.(css|scss)$/,
+                    use: isDevelopment ?
+                        ['style-loader', {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        }, postcss_loader, {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        }]
+                        : ExtractTextPlugin.extract({
+                            fallback: 'style-loader',
+                            use: [{
+                                loader: 'css-loader',
+                                options: {
+                                    minimize: true,
+                                }
+                            }, postcss_loader, {
+                                loader: 'sass-loader'
+                            }]
+                        })
                 },
                 {
                     test: /\.(gif|jpg|jpeg|png|woff|woff2|eot|ttf|svg)$/,
-                    loader: 'url-loader?limit=100000'
+                    use: ['url-loader?limit=100000']
                 }
-            ]
+            ],
         },
         output: {
             filename: '[name].bundle.js',
@@ -53,17 +80,21 @@ module.exports = function (isDevelopment) {
         },
         plugins: isDevelopment ?
             [
-                new webpack.optimize.OccurenceOrderPlugin(),
+                new webpack.LoaderOptionsPlugin({
+                    debug: true
+                }),
+                new webpack.NamedModulesPlugin(),
                 new webpack.HotModuleReplacementPlugin(),
-                new webpack.NoErrorsPlugin()
+                new webpack.NoEmitOnErrorsPlugin()
             ] : [
-            new ExtractTextPlugin("[name].styles.css"),
-            new webpack.optimize.OccurenceOrderPlugin(),
-            new webpack.optimize.DedupePlugin(),
-            new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
-        ],
-        postcss: [
-            autoprefixer({browsers: ['last 3 versions']})
-        ]
+                new ExtractTextPlugin({
+                    filename: "[name].styles.css"
+                }),
+                new UglifyJSPlugin({
+                    compress: {
+                        warnings: false
+                    }
+                })
+            ],
     };
 };
