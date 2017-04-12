@@ -29,3 +29,12 @@ body {
     height: 100px;
     background-image: url('../img/ico.jpg');
 }
+
+.counter {
+    display: inline-block;
+    background-color: #fff;
+    padding: 10px 15px;
+    margin: 10px 0;
+    font-size: 25px;
+    font-weight: bold;
+}

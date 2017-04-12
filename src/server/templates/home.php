@@ -13,6 +13,7 @@
 <div class="circle">Dev</div>
 <div class="order-test">This must be green</div>
 <div class="ico">ico</div>
+<div class="counter">1</div>
 <?php if (APP_ENVIRONMENT == 'production') {
     echo '<script type="text/javascript" src="/build/index.bundle.js?v=' . APP_VERSION . '" charset="utf-8"></script>';
 } else {

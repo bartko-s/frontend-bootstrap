@@ -3,4 +3,12 @@
 // global css
 require("./css/base.css");
 
-(a => console.log('Hi, Babel works'))();
+import $ from 'jquery';
+
+
+(() => {
+    let elm = $('.counter');
+    setInterval(() => {
+        elm.text(parseInt(elm.text()) + 1);
+    }, 1000);
+})();
