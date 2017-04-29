@@ -5,7 +5,6 @@ require("./css/base.css");
 
 import $ from 'jquery';
 
-
 (() => {
     let elm = $('.counter');
     setInterval(() => {
