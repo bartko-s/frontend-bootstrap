@@ -1,4 +1,4 @@
- 'use strict';
+'use strict';
 
 const path = require('path');
 const webpack = require('webpack');
@@ -7,18 +7,21 @@ const autoprefixer = require('autoprefixer');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 
-const postcss_loader = {
-    loader: 'postcss-loader',
-    options: {
-        plugins: function () {
-            return [
-                autoprefixer({
-                    browsers: ['last 3 versions']
-                })
-            ]
+function postcss_loader(isDevelopment) {
+    return {
+        loader: 'postcss-loader',
+        options: {
+            sourceMap: isDevelopment,
+            plugins: function () {
+                return [
+                    autoprefixer({
+                        browsers: ['last 3 versions']
+                    })
+                ]
+            }
         }
     }
-};
+}
 
 module.exports = function (isDevelopment) {
     return {
@@ -44,27 +47,18 @@ module.exports = function (isDevelopment) {
                 {
                     test: /\.(css|scss)$/,
                     use: isDevelopment ?
-                        ['style-loader', {
-                            loader: 'css-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        }, postcss_loader, {
-                            loader: 'sass-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        }]
+                        [
+                            'style-loader',
+                            {loader: 'css-loader', options: {sourceMap: true}},
+                            postcss_loader(isDevelopment),
+                            {loader: 'sass-loader', options: {sourceMap: true}}]
                         : ExtractTextPlugin.extract({
                             fallback: 'style-loader',
-                            use: [{
-                                loader: 'css-loader',
-                                options: {
-                                    minimize: true,
-                                }
-                            }, postcss_loader, {
-                                loader: 'sass-loader'
-                            }]
+                            use: [
+                                {loader: 'css-loader', options: {minimize: true,}},
+                                postcss_loader(isDevelopment),
+                                {loader: 'sass-loader'}
+                            ]
                         })
                 },
                 {

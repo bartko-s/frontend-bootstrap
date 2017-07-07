@@ -5,3 +5,4 @@
 /src/server/config/*.local.php
 /src/browser/node_modules/
 /build/*
+/src/browser/package-lock.json

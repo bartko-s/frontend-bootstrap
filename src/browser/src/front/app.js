@@ -11,3 +11,5 @@ import $ from 'jquery';
         elm.text(parseInt(elm.text()) + 1);
     }, 1000);
 })();
+
+console.log("Hi");
