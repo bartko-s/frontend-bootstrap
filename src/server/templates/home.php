@@ -15,8 +15,10 @@
 <div class="ico">ico</div>
 <div class="counter">1</div>
 <?php if (APP_ENVIRONMENT == 'production') {
+    echo '<script type="text/javascript" src="/build/vendor.bundle.js?v=' . APP_VERSION . '" charset="utf-8"></script>';
     echo '<script type="text/javascript" src="/build/index.bundle.js?v=' . APP_VERSION . '" charset="utf-8"></script>';
 } else {
+    echo '<script type="text/javascript" src="http://localhost:8080/build/vendor.bundle.js" charset="utf-8"></script>';
     echo '<script type="text/javascript" src="http://localhost:8080/build/index.bundle.js" charset="utf-8"></script>';
 } ?>
 </body>

@@ -35,7 +35,8 @@ module.exports = function (isDevelopment) {
                     path.join(__dirname, '../../src/front/app.js')
                 ] : [
                     path.join(__dirname, '../../src/front/app.js')
-                ]
+                ],
+            vendor: ['jquery']
         },
         module: {
             rules: [
@@ -74,6 +75,10 @@ module.exports = function (isDevelopment) {
         },
         plugins: isDevelopment ?
             [
+                new webpack.optimize.CommonsChunkPlugin({
+                    name: 'vendor',
+                }),
+                new webpack.optimize.ModuleConcatenationPlugin(),
                 new webpack.LoaderOptionsPlugin({
                     debug: true
                 }),
@@ -81,6 +86,10 @@ module.exports = function (isDevelopment) {
                 new webpack.HotModuleReplacementPlugin(),
                 new webpack.NoEmitOnErrorsPlugin()
             ] : [
+                new webpack.optimize.CommonsChunkPlugin({
+                    name: 'vendor',
+                }),
+                new webpack.optimize.ModuleConcatenationPlugin(),
                 new webpack.DefinePlugin({
                     'process.env': {
                         'NODE_ENV': JSON.stringify('production')
