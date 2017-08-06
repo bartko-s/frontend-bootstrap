@@ -98,11 +98,7 @@ module.exports = function (isDevelopment) {
                 new ExtractTextPlugin({
                     filename: "[name].styles.css"
                 }),
-                new UglifyJSPlugin({
-                    compress: {
-                        warnings: false
-                    }
-                })
+                new UglifyJSPlugin()
             ],
     };
 };
