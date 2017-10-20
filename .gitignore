@@ -1,7 +1,4 @@
 .idea/
 *.iml
-/src/server/vendor/
-/src/server/composer.lock
-/src/server/config/*.local.php
-/src/browser/node_modules/
 /build/*
+/node_modules/

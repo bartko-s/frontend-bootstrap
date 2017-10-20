@@ -70,7 +70,7 @@ module.exports = function (isDevelopment) {
         },
         output: {
             filename: '[name].bundle.js',
-            path: path.join(__dirname, '../../../../build/'),
+            path: path.join(__dirname, '../../build/'),
             publicPath: isDevelopment ? 'http://localhost:8080/build/' : '/build/'
         },
         plugins: isDevelopment ?
