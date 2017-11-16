@@ -14,9 +14,7 @@ function postcss_loader(isDevelopment) {
             sourceMap: isDevelopment,
             plugins: function () {
                 return [
-                    autoprefixer({
-                        browsers: ['last 3 versions']
-                    })
+                    autoprefixer()
                 ]
             }
         }

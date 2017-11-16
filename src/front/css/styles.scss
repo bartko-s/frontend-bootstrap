@@ -1,0 +1,35 @@
+@import "reset.scss";
+
+body {
+    background-color: #dddddd;
+}
+
+.circle {
+    background-color: #6699cc;
+    border-radius: 75px;
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    line-height: 150px;
+    font-size: 40px;
+    margin: 10px;
+}
+
+.ico {
+    width: 128px;
+    height: 128px;
+    background-image: url('../img/ico.png');
+    margin: 10px;
+    .hide {
+        display: none;
+    }
+}
+
+.counter {
+    display: inline-block;
+    background-color: #fff;
+    padding: 10px 15px;
+    margin: 10px;
+    font-size: 25px;
+    font-weight: bold;
+}
