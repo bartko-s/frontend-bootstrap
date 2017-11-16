@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 function postcss_loader(isDevelopment) {
     return {
@@ -23,19 +23,12 @@ function postcss_loader(isDevelopment) {
     }
 }
 
-module.exports = function (isDevelopment) {
+function buildConfig(isDevelopment) {
     return {
         cache: isDevelopment,
         devtool: isDevelopment ? 'eval-source-map' : false,
         entry: {
-            index: isDevelopment ?
-                [
-                    'webpack-dev-server/client?http://localhost:8080',
-                    'webpack/hot/dev-server',
-                    path.join(__dirname, '../../src/front/app.js')
-                ] : [
-                    path.join(__dirname, '../../src/front/app.js')
-                ],
+            index: path.join(__dirname, 'src/front/app.js'),
             vendor: ['jquery']
         },
         module: {
@@ -70,7 +63,7 @@ module.exports = function (isDevelopment) {
         },
         output: {
             filename: '[name].bundle.js',
-            path: path.join(__dirname, '../../build/'),
+            path: path.join(__dirname, 'build/'),
             publicPath: isDevelopment ? 'http://localhost:8080/build/' : '/build/'
         },
         plugins: isDevelopment ?
@@ -79,13 +72,11 @@ module.exports = function (isDevelopment) {
                     name: 'vendor',
                 }),
                 new webpack.optimize.ModuleConcatenationPlugin(),
-                new webpack.LoaderOptionsPlugin({
-                    debug: true
-                }),
                 new webpack.NamedModulesPlugin(),
                 new webpack.HotModuleReplacementPlugin(),
                 new webpack.NoEmitOnErrorsPlugin()
             ] : [
+                new CleanWebpackPlugin(['build']),
                 new webpack.optimize.CommonsChunkPlugin({
                     name: 'vendor',
                 }),
@@ -100,5 +91,17 @@ module.exports = function (isDevelopment) {
                 }),
                 new UglifyJSPlugin()
             ],
+        devServer: isDevelopment ? {
+            proxy: {
+                '*': 'http://127.0.0.1:8000'
+            },
+            publicPath: 'http://localhost:8080/build/',
+            hot: true,
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        } : {}
     };
-};
+}
+
+module.exports = buildConfig(process.env.NODE_ENV === 'development');
