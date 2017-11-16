@@ -6,7 +6,7 @@ Another Webpack Frontend Bootstrap v.3
 Install dependencies
 --------------------
 ```
-npm install
+yarn install
 ```
 
 Run dev server
