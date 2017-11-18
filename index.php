@@ -26,6 +26,7 @@ if (is_file($filePath)) {
 <div class="circle">Dev</div>
 <div class="ico"><span class="hide">Don't work</span></div>
 <div class="counter">1</div>
+<div id="react-root">React does not work</div>
 <?php if (APP_ENVIRONMENT == 'production') {
     echo '<script type="text/javascript" src="/build/vendor.bundle.js?v=' . APP_VERSION . '" charset="utf-8"></script>';
     echo '<script type="text/javascript" src="/build/index.bundle.js?v=' . APP_VERSION . '" charset="utf-8"></script>';

@@ -13,3 +13,10 @@ import $ from 'jquery';
 })();
 
 console.log("Hi");
+
+// React Test
+import React from 'react';
+import {render} from 'react-dom';
+import MyReactComponent from './js/MyReactComponent.jsx';
+
+render(<MyReactComponent/>, document.getElementById('react-root'));

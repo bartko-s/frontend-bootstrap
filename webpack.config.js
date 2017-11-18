@@ -32,6 +32,11 @@ function buildConfig(isDevelopment) {
         module: {
             rules: [
                 {
+                    test : /\.jsx$/,
+                    exclude: /node_modules/,
+                    use : ['babel-loader']
+                },
+                {
                     test: /\.js$/,
                     exclude: /node_modules/,
                     use: ['babel-loader']
