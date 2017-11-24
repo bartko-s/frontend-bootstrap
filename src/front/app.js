@@ -16,7 +16,22 @@ console.log("Hi");
 
 // React Test
 import React from 'react';
-import {render} from 'react-dom';
+import ReactDOM from 'react-dom';
 import MyReactComponent from './js/MyReactComponent';
+import { AppContainer } from 'react-hot-loader'
 
-render(<MyReactComponent/>, document.getElementById('react-root'));
+const render = Component => {
+    ReactDOM.render(
+        <AppContainer>
+            <Component />
+        </AppContainer>,
+        document.getElementById('react-root'),
+    )
+};
+
+render(MyReactComponent);
+
+// Webpack Hot Module Replacement API
+if (module.hot) {
+    module.hot.accept('./js/MyReactComponent', () => { render(MyReactComponent) })
+}

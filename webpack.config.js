@@ -26,8 +26,8 @@ function buildConfig(isDevelopment) {
         cache: isDevelopment,
         devtool: isDevelopment ? 'eval-source-map' : false,
         entry: {
-            index: path.join(__dirname, 'src/front/app.js'),
-            vendor: ['jquery']
+            index: ['react-hot-loader/patch', path.join(__dirname, 'src/front/app.js')],
+            vendor: ['jquery', 'react', 'react-dom']
         },
         resolve: {
             extensions: ['*', '.js', '.json', '.jsx']
