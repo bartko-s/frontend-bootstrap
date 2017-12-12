@@ -1,8 +1,18 @@
+// @flow
+
 import React from 'react';
 
-class MyReactComponent extends React.Component {
+type State = {
+    message: string
+}
 
-    constructor(props) {
+type Props = {
+
+}
+
+class MyReactComponent extends React.Component<{}, State> {
+
+    constructor(props: Props) {
         super(props);
         this.state = {
             message : 'Great. React works.'

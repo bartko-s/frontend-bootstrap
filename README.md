@@ -15,8 +15,9 @@ Run dev server
 php -S 127.0.0.1:8000 index.php
 ```
 
-NPM tasks
+YARN tasks
 ----------
 
-- development build ``` npm run dev ```
-- production build ``` npm run build ```
+- development build ``` yarn run dev ```
+- production build ``` yarn run build ```
+- static analysis  ``` yarn run flow ```
