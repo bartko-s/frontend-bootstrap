@@ -1,27 +1,30 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 
 type State = {
-    message: string
-}
-
-type Props = {
-
+    message: string,
+    smile: string
 }
 
 class MyReactComponent extends React.Component<{}, State> {
+    state =  {
+        message : 'Great. React works.',
+        smile: ""
+    };
 
-    constructor(props: Props) {
-        super(props);
-        this.state = {
-            message : 'Great. React works.'
-        };
-    }
+    onHoverHandler = () => {
+        this.setState({
+            smile: ":)"
+        })
+    };
 
-    render() {
+    render(): React.Node {
         return (
-            <span className="react-test">{this.state.message}</span>
+            <div>
+                <span className="react-test">{this.state.message + ' ' + this.state.smile}</span>
+                <span onMouseOver={this.onHoverHandler}>Hover this</span>
+            </div>
         );
     }
 }
