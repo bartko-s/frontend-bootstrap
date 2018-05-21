@@ -1,7 +1,5 @@
-Another Webpack Frontend Bootstrap
+Another Webpack v.4 Frontend Bootstrap
 ==================================
-
-[![Dependency Status](https://www.versioneye.com/user/projects/59e9e6bd2de28c15828fb350/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59e9e6bd2de28c15828fb350)
 
 Install dependencies
 --------------------

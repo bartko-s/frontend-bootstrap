@@ -2,7 +2,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const autoprefixer = require('autoprefixer');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -24,11 +24,11 @@ function postCssLoader(isDevelopment) {
 
 function buildConfig(isDevelopment) {
     return {
+        mode: 'none',
         cache: isDevelopment,
         devtool: isDevelopment ? 'eval-source-map' : false,
         entry: {
-            index: ['react-hot-loader/patch', path.join(__dirname, 'src/app.js')],
-            vendor: ['jquery', 'react', 'react-dom']
+            index: [path.join(__dirname, 'src/app.js')],
         },
         resolve: {
             extensions: ['*', '.js', '.json', '.jsx']
@@ -53,14 +53,12 @@ function buildConfig(isDevelopment) {
                             {loader: 'css-loader', options: {sourceMap: true}},
                             postCssLoader(isDevelopment),
                             {loader: 'sass-loader', options: {sourceMap: true}}]
-                        : ExtractTextPlugin.extract({
-                            fallback: 'style-loader',
-                            use: [
-                                {loader: 'css-loader', options: {minimize: true,}},
-                                postCssLoader(isDevelopment),
-                                {loader: 'sass-loader'}
-                            ]
-                        })
+                        : [
+                            MiniCssExtractPlugin.loader,
+                            {loader: 'css-loader', options: {minimize: true,}},
+                            postCssLoader(isDevelopment),
+                            {loader: 'sass-loader'}
+                        ]
                 },
                 {
                     test: /\.(gif|jpg|jpeg|png|woff|woff2|eot|ttf|svg)$/,
@@ -73,27 +71,32 @@ function buildConfig(isDevelopment) {
             path: path.join(__dirname, 'build/'),
             publicPath: isDevelopment ? 'http://localhost:8080/build/' : '/build/'
         },
+        optimization: {
+            splitChunks: {
+                cacheGroups: {
+                    commons: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: "vendor",
+                        chunks: "all"
+                    }
+                }
+            }
+        },
         plugins: isDevelopment ?
             [
-                new webpack.optimize.CommonsChunkPlugin({
-                    name: 'vendor',
-                }),
                 new webpack.optimize.ModuleConcatenationPlugin(),
                 new webpack.NamedModulesPlugin(),
                 new webpack.HotModuleReplacementPlugin(),
                 new webpack.NoEmitOnErrorsPlugin()
             ] : [
                 new CleanWebpackPlugin(['build']),
-                new webpack.optimize.CommonsChunkPlugin({
-                    name: 'vendor',
-                }),
                 new webpack.optimize.ModuleConcatenationPlugin(),
                 new webpack.DefinePlugin({
                     'process.env': {
                         'NODE_ENV': JSON.stringify('production')
                     }
                 }),
-                new ExtractTextPlugin({
+                new MiniCssExtractPlugin({
                     filename: "[name].styles.css"
                 }),
                 new UglifyJSPlugin()
