@@ -1,13 +1,6 @@
-// @flow
-
 import * as React from 'react';
 
-type State = {
-    message: string,
-    smile: string
-}
-
-class MyReactComponent extends React.Component<{}, State> {
+class MyReactComponent extends React.Component {
     state =  {
         message : 'Great. React works.',
         smile: ""
@@ -19,7 +12,7 @@ class MyReactComponent extends React.Component<{}, State> {
         })
     };
 
-    render(): React.Node {
+    render() {
         return (
             <div>
                 <span className="react-test">{this.state.message + ' ' + this.state.smile}</span>
