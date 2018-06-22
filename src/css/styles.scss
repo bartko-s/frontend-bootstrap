@@ -2,15 +2,8 @@ body {
     background-color: #dddddd;
 }
 
-.circle {
-    background-color: #6699cc;
-    border-radius: 75px;
-    width: 150px;
-    height: 150px;
-    text-align: center;
-    line-height: 150px;
-    font-size: 40px;
-    margin: 10px;
+.content {
+    margin: 20px;
 }
 
 .ico {
@@ -21,20 +14,7 @@ body {
     .hide {
         display: none;
     }
-}
-
-.counter {
-    display: inline-block;
-    background-color: #fff;
-    padding: 10px 15px;
-    margin: 10px;
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.react-test {
-    color: red;
-    background-color: yellow;
-    padding: 15px;
-    margin: 10px;
+    &__reverse {
+        background-image: url('../img/ico-flipped.png');
+    }
 }

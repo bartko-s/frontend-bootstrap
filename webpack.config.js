@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -26,24 +24,24 @@ function buildConfig(isDevelopment) {
     return {
         mode: 'none',
         cache: isDevelopment,
-        devtool: isDevelopment ? 'eval-source-map' : false,
+        devtool: isDevelopment ? 'source-map' : false,
         entry: {
             index: [path.join(__dirname, 'src/app.js')],
         },
         resolve: {
-            extensions: ['*', '.js', '.json', '.jsx']
+            extensions: ['*', '.ts', '.tsx', '.js', '.json', '.jsx']
         },
         module: {
             rules: [
                 {
-                    test : /\.jsx$/,
+                    test: /\.(t|j)sx?$/,
                     exclude: /node_modules/,
-                    use : ['babel-loader']
+                    use : ['awesome-typescript-loader?module=es6']
                 },
                 {
                     test: /\.js$/,
-                    exclude: /node_modules/,
-                    use: ['babel-loader']
+                    loader: 'source-map-loader',
+                    enforce: 'pre'
                 },
                 {
                     test: /\.(css|scss)$/,
