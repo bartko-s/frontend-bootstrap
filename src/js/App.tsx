@@ -3,6 +3,10 @@ import {hot} from 'react-hot-loader';
 import {MyReactComponent} from './StatefullComponent';
 
 
-const App = () => <div><MyReactComponent speed={1000}/></div>;
+const App = () => <div className="content">
+        <h1>Great React works.</h1>
+        <MyReactComponent/>
+        <MyReactComponent speed={2500}/>
+    </div>
 
 export default hot(module)(App)

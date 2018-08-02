@@ -24,7 +24,7 @@ function buildConfig(isDevelopment) {
     return {
         mode: 'none',
         cache: isDevelopment,
-        devtool: isDevelopment ? 'source-map' : false,
+        devtool: isDevelopment ? 'eval-source-map' : false,
         entry: {
             index: [path.join(__dirname, 'src/app.js')],
         },
@@ -67,7 +67,8 @@ function buildConfig(isDevelopment) {
         output: {
             filename: '[name].bundle.js',
             path: path.join(__dirname, 'build/'),
-            publicPath: isDevelopment ? 'http://localhost:8080/build/' : '/build/'
+            publicPath: isDevelopment ? 'http://localhost:8080/build/' : '/build/',
+            crossOriginLoading: isDevelopment ? "anonymous" : false,
         },
         optimization: {
             splitChunks: {
