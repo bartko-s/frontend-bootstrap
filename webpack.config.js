@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const autoprefixer = require('autoprefixer');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const cssnano = require('cssnano');
 
 
 function postCssLoader(isDevelopment) {
@@ -15,7 +16,8 @@ function postCssLoader(isDevelopment) {
             sourceMap: isDevelopment,
             plugins: function () {
                 return [
-                    autoprefixer()
+                    autoprefixer(),
+                    cssnano()
                 ]
             }
         }
@@ -55,7 +57,7 @@ function buildConfig(isDevelopment) {
                             {loader: 'sass-loader', options: {sourceMap: true}}]
                         : [
                             MiniCssExtractPlugin.loader,
-                            {loader: 'css-loader', options: {minimize: true,}},
+                            'css-loader',
                             postCssLoader(isDevelopment),
                             {loader: 'sass-loader'}
                         ]
@@ -102,9 +104,6 @@ function buildConfig(isDevelopment) {
                 new UglifyJSPlugin()
             ],
         devServer: isDevelopment ? {
-            proxy: {
-                '*': 'http://127.0.0.1:8000'
-            },
             overlay: true,
             publicPath: 'http://localhost:8080/build/',
             hot: true,
