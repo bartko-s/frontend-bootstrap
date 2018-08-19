@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const autoprefixer = require('autoprefixer');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const cssnano = require('cssnano');
 
 
 function postCssLoader(isDevelopment) {
@@ -13,7 +14,8 @@ function postCssLoader(isDevelopment) {
             sourceMap: isDevelopment,
             plugins: function () {
                 return [
-                    autoprefixer()
+                    autoprefixer(),
+                    cssnano()
                 ]
             }
         }
@@ -67,8 +69,7 @@ function buildConfig(isDevelopment) {
         output: {
             filename: '[name].bundle.js',
             path: path.join(__dirname, 'build/'),
-            publicPath: isDevelopment ? 'http://localhost:8080/build/' : '/build/',
-            crossOriginLoading: isDevelopment ? "anonymous" : false,
+            publicPath: isDevelopment ? 'http://localhost:8080/build/' : '/build/'
         },
         optimization: {
             splitChunks: {
