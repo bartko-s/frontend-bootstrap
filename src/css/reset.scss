@@ -1,12 +1,6 @@
 /************************************
     Reset Browser Default Styles
 *************************************/
-@import '~normalize.css';
-
-html {
-  box-sizing: border-box;
-}
-
-*, *:before, *:after {
-  box-sizing: inherit;
-}
+@import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
+@import '~bootstrap/scss/utilities';

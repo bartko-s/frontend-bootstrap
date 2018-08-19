@@ -16,17 +16,23 @@ if (is_file($filePath)) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Dev Stack</title>
     <?php if (APP_ENVIRONMENT == 'production') {
         echo '<link href="/build/index.styles.css?v=' . APP_VERSION . '" rel="stylesheet" />';
     } ?>
 </head>
 <body>
-<div class="circle">Dev</div>
-<div class="ico"><span class="hide">Don't work</span></div>
-<div class="counter">1</div>
-<div id="react-root">React does not work</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col align-self-center">
+            <div class="circle">Dev</div>
+            <div class="ico"><span class="hide">Don't work</span></div>
+            <div class="counter">1</div>
+            <div id="react-root">React does not work</div>
+        </div>
+    </div>
+</div>
 <?php if (APP_ENVIRONMENT == 'production') {
     echo '<script type="text/javascript" src="/build/vendor.bundle.js?v=' . APP_VERSION . '" charset="utf-8"></script>';
     echo '<script type="text/javascript" src="/build/index.bundle.js?v=' . APP_VERSION . '" charset="utf-8"></script>';

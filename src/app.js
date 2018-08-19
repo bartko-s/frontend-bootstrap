@@ -1,7 +1,7 @@
 "use strict";
 
 // global css
-require("./css/base.css");
+require("./css/main.css");
 
 import $ from 'jquery';
 
