@@ -1,12 +1,12 @@
-const path = require('path');
-const webpack = require('webpack');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const autoprefixer = require('autoprefixer');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const cssnano = require('cssnano');
+import * as path from 'path'
+import * as webpack from 'webpack'
+import * as webpackDevServer from 'webpack-dev-server'
+import * as MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import * as autoprefixer from 'autoprefixer'
+import * as CleanWebpackPlugin from 'clean-webpack-plugin'
+import * as cssnano from 'cssnano'
 
-
-function postCssLoader(isDevelopment) {
+function postCssLoader(isDevelopment: boolean): webpack.Loader {
     return {
         loader: 'postcss-loader',
         options: {
@@ -21,7 +21,7 @@ function postCssLoader(isDevelopment) {
     }
 }
 
-function buildConfig(isDevelopment) {
+function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDevServer.Configuration {
     return {
         mode: isDevelopment ? 'development' : 'production',
         cache: isDevelopment,
@@ -105,7 +105,7 @@ function buildConfig(isDevelopment) {
     };
 }
 
-module.exports = function(env, argv) {
+export default function(env: undefined, argv: webpack.Configuration) {
     const config = buildConfig(argv.mode === 'development');
     // console.log(config);
     return config

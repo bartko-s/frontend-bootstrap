@@ -8,8 +8,15 @@
     "last 2 versions"
   ],
   "devDependencies": {
+    "@types/autoprefixer": "^6.7.3",
+    "@types/clean-webpack-plugin": "^0.1.2",
+    "@types/cssnano": "^4.0.0",
+    "@types/mini-css-extract-plugin": "^0.2.0",
+    "@types/node": "^10.9.4",
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.7",
+    "@types/webpack": "^4.4.11",
+    "@types/webpack-dev-server": "^3.1.0",
     "autoprefixer": "^9.1.5",
     "awesome-typescript-loader": "^5.2.1",
     "clean-webpack-plugin": "^0.1.19",
@@ -23,6 +30,7 @@
     "sass-loader": "^7.1.0",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.0",
+    "ts-node": "^7.0.1",
     "typescript": "^3.0.3",
     "url-loader": "^1.1.1",
     "webpack": "^4.18.0",
