@@ -54,7 +54,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                             {loader: 'sass-loader', options: {sourceMap: true}}]
                         : [
                             MiniCssExtractPlugin.loader,
-                            {loader: 'css-loader', options: {minimize: true,}},
+                            {loader: 'css-loader'},
                             postCssLoader(isDevelopment),
                             {loader: 'sass-loader'}
                         ]
