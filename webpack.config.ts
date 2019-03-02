@@ -6,6 +6,11 @@ import * as autoprefixer from 'autoprefixer'
 import * as CleanWebpackPlugin from 'clean-webpack-plugin'
 import * as cssnano from 'cssnano'
 
+const protocol: 'https' | 'http' = 'https';
+const serverUrl: string = '127.0.0.1';
+const port: number = 8080;
+const buildPath: string = "build/";
+
 function postCssLoader(isDevelopment: boolean): webpack.Loader {
     return {
         loader: 'postcss-loader',
@@ -67,40 +72,43 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
         },
         output: {
             filename: '[name].bundle.js',
-            path: path.join(__dirname, 'build/'),
-            publicPath: isDevelopment ? 'http://localhost:8080/build/' : '/build/'
+            path: path.join(__dirname, buildPath),
+            publicPath: isDevelopment ? protocol+'://'+serverUrl+':'+port+'/'+buildPath : buildPath
         },
         optimization: {
             splitChunks: {
                 cacheGroups: {
                     commons: {
-                        test: /[\\/]node_modules[\\/]/,
+                        test: /node_modules/,
                         name: "vendor",
-                        chunks: "all"
+                        chunks: "all",
+                        enforce: true,
                     }
                 }
             }
         },
         plugins: isDevelopment ?
             [
-                new CleanWebpackPlugin(['build']),
+                new CleanWebpackPlugin([buildPath]),
                 new webpack.HotModuleReplacementPlugin(),
             ] : [
-                new CleanWebpackPlugin(['build']),
+                new CleanWebpackPlugin([buildPath]),
                 new MiniCssExtractPlugin({
                     filename: "[name].styles.css"
                 }),
             ],
         devServer: isDevelopment ? {
             proxy: {
-                '*': 'http://127.0.0.1:8000'
+                ['!/'+buildPath+'*']: {
+                    target: protocol+'://'+serverUrl,
+                    secure: false
+                }
             },
             overlay: true,
-            publicPath: 'http://localhost:8080/build/',
+            publicPath: protocol+'://'+serverUrl+':'+port+'/'+buildPath,
             hot: true,
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            }
+            port: port,
+            https: protocol === 'https'
         } : {}
     };
 }
