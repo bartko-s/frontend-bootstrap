@@ -9,7 +9,9 @@ import * as cssnano from 'cssnano'
 const protocol: 'https' | 'http' = 'https';
 const serverUrl: string = '127.0.0.1';
 const port: number = 8080;
-const buildPath: string = "build/";
+const publicPath: string = "/build/";
+const buildPath: string = path.join(__dirname, 'build');
+
 
 function postCssLoader(isDevelopment: boolean): webpack.Loader {
     return {
@@ -66,14 +68,20 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                 },
                 {
                     test: /\.(gif|jpg|jpeg|png|woff|woff2|eot|ttf|svg)$/,
-                    use: ['url-loader?limit=100000']
+                    use: [{
+                        loader: 'url-loader',
+                        options: {
+                            limit: 5000,
+                            fallback: 'file-loader',
+                        }
+                    }]
                 }
             ],
         },
         output: {
             filename: '[name].bundle.js',
-            path: path.join(__dirname, buildPath),
-            publicPath: isDevelopment ? protocol+'://'+serverUrl+':'+port+'/'+buildPath : buildPath
+            path: buildPath,
+            publicPath: isDevelopment ? protocol+'://'+serverUrl+':'+port+publicPath : publicPath
         },
         optimization: {
             splitChunks: {
@@ -99,13 +107,16 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
             ],
         devServer: isDevelopment ? {
             proxy: {
-                ['!/'+buildPath+'*']: {
+                ['!'+buildPath+'*']: {
                     target: protocol+'://'+serverUrl,
                     secure: false
                 }
             },
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            },
             overlay: true,
-            publicPath: protocol+'://'+serverUrl+':'+port+'/'+buildPath,
+            publicPath: protocol+'://'+serverUrl+':'+port+publicPath,
             hot: true,
             port: port,
             https: protocol === 'https'
