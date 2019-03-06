@@ -9,8 +9,8 @@ import * as cssnano from 'cssnano'
 const protocol: 'https' | 'http' = 'https';
 const serverUrl: string = '127.0.0.1';
 const port: number = 8080;
-const publicPath: string = "/build/";
-const buildPath: string = path.join(__dirname, 'build');
+const publicPath: string = "/static/build/";
+const buildPath: string = path.join(__dirname, 'static/build');
 
 
 function postCssLoader(isDevelopment: boolean): webpack.Loader {
@@ -34,7 +34,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
         cache: isDevelopment,
         devtool: isDevelopment ? 'eval-source-map' : false,
         entry: {
-            index: [path.join(__dirname, 'src/app.js')],
+            index: [path.join(__dirname, 'static/app.js')],
         },
         resolve: {
             extensions: ['*', '.ts', '.tsx', '.js', '.json', '.jsx']

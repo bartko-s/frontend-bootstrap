@@ -1,5 +1,5 @@
 .idea/
 *.iml
-/build/*
+/static/build/*
 /node_modules/
 /yarn-error.log
