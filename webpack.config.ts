@@ -3,7 +3,8 @@ import * as webpack from 'webpack'
 import * as webpackDevServer from 'webpack-dev-server'
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import * as autoprefixer from 'autoprefixer'
-import * as CleanWebpackPlugin from 'clean-webpack-plugin'
+import CleanWebpackPlugin from 'clean-webpack-plugin'
+
 import * as cssnano from 'cssnano'
 
 const protocol: 'https' | 'http' = 'https';
@@ -37,7 +38,10 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
             index: [path.join(__dirname, 'static/app.js')],
         },
         resolve: {
-            extensions: ['*', '.ts', '.tsx', '.js', '.json', '.jsx']
+            extensions: ['*', '.ts', '.tsx', '.js', '.json', '.jsx'],
+            alias: {
+                'react-dom': isDevelopment ? '@hot-loader/react-dom': 'react-dom'
+            }
         },
         module: {
             rules: [
@@ -97,10 +101,10 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
         },
         plugins: isDevelopment ?
             [
-                new CleanWebpackPlugin([buildPath]),
+                new CleanWebpackPlugin(),
                 new webpack.HotModuleReplacementPlugin(),
             ] : [
-                new CleanWebpackPlugin([buildPath]),
+                new CleanWebpackPlugin(),
                 new MiniCssExtractPlugin({
                     filename: "[name].styles.css"
                 }),
