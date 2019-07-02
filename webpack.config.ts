@@ -3,7 +3,7 @@ import * as webpack from 'webpack'
 import * as webpackDevServer from 'webpack-dev-server'
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import * as autoprefixer from 'autoprefixer'
-import CleanWebpackPlugin from 'clean-webpack-plugin'
+import {CleanWebpackPlugin} from 'clean-webpack-plugin'
 
 import * as cssnano from 'cssnano'
 
