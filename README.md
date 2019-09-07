@@ -10,14 +10,20 @@ Another Webpack v.4 Frontend Bootstrap
 - and much more
 
 
-Install dependencies
+How to run development server
 --------------------
-```
-yarn install
-```
+- run docker with console command `./run.sh`
+- select `development`
+- open browser [http://0.0.0.0:8080](http://0.0.0.0:8080)
+- build something beautiful
 
-YARN tasks
-----------
+How to build
+--------------------
+- run docker with console command `./run.sh`
+- select `production build`
 
-- development build ``` yarn run dev ```
-- production build ``` yarn run build ```
+How to run production server
+--------------------
+- run docker with console command `./run.sh`
+- select `production`
+- open browser [http://0.0.0.0](http://0.0.0.0)

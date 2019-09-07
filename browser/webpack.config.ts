@@ -4,11 +4,10 @@ import * as webpackDevServer from 'webpack-dev-server'
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import * as autoprefixer from 'autoprefixer'
 import {CleanWebpackPlugin} from 'clean-webpack-plugin'
-
 import * as cssnano from 'cssnano'
 
-const protocol: 'https' | 'http' = 'https';
-const serverUrl: string = '127.0.0.1';
+const protocol: 'https' | 'http' = 'http';
+const serverUrl: string = '0.0.0.0';
 const port: number = 8080;
 const publicPath: string = "/static/build/";
 const buildPath: string = path.join(__dirname, 'static/build');
@@ -111,14 +110,15 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
             ],
         devServer: isDevelopment ? {
             proxy: {
-                ['!'+buildPath+'*']: {
-                    target: protocol+'://'+serverUrl,
+                ['!'+publicPath+'*']: {
+                    target: protocol+'://node-server:8082',
                     secure: false
                 }
             },
             headers: {
                 'Access-Control-Allow-Origin': '*'
             },
+            host: serverUrl,
             overlay: true,
             publicPath: protocol+'://'+serverUrl+':'+port+publicPath,
             hot: true,
