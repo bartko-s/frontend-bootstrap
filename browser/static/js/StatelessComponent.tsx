@@ -1,10 +1,10 @@
 import * as React from 'react'
-import {SFC, MouseEvent} from "react"
+import {FunctionComponent, MouseEvent} from "react"
 
 type Props = {
     onClick(e: MouseEvent<HTMLElement>): void
 }
 
-export const Button: SFC<Props> = ({onClick: handleClick, children}) => (
+export const Button: FunctionComponent<Props> = ({onClick: handleClick, children}) => (
     <button onClick={handleClick}>{children}</button>
 )
