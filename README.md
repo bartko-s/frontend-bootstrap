@@ -7,6 +7,7 @@ Another Webpack v.4 Frontend Bootstrap
 - Sass
 - React
 - Autoprefixer
+- Styled Components
 - and much more
 
 

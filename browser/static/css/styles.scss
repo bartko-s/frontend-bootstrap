@@ -1,20 +1,3 @@
 body {
     background-color: #dddddd;
 }
-
-.content {
-    margin: 20px;
-}
-
-.ico {
-    width: 128px;
-    height: 128px;
-    background-image: url('../img/ico.png');
-    margin: 10px;
-    .hide {
-        display: none;
-    }
-    &__reverse {
-        background-image: url('../img/ico-flipped.png');
-    }
-}

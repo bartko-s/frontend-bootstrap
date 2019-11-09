@@ -6,6 +6,9 @@ import * as autoprefixer from 'autoprefixer'
 import {CleanWebpackPlugin} from 'clean-webpack-plugin'
 import * as cssnano from 'cssnano'
 
+const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default;
+const styledComponentsTransformer = createStyledComponentsTransformer();
+
 const protocol: 'https' | 'http' = 'http';
 const serverUrl: string = '0.0.0.0';
 const port: number = 8080;
@@ -47,7 +50,13 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                 {
                     test: /\.(t|j)sx?$/,
                     exclude: /node_modules/,
-                    use : ['awesome-typescript-loader?module=es6']
+                    loader: 'awesome-typescript-loader',
+                    options: isDevelopment ? {
+                        "module": "es6",
+                        "getCustomTransformers": () => ({ before: [styledComponentsTransformer] }),
+                    } : {
+                        "module": "es6"
+                    }
                 },
                 {
                     test: /\.js$/,
