@@ -10,7 +10,7 @@ const MinionImg = styled.div`
 `
 
 const MinionFlippedImg = styled(MinionImg)`
-    background-image: url('/static/img/ico-flipped.png');
+    transform: scaleX(-1);
 `
 
 type State = Readonly<typeof initialState>
