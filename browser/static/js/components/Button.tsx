@@ -1,14 +1,13 @@
 import * as React from 'react'
-import {FunctionComponent, MouseEvent} from "react"
 import styled from 'styled-components'
 
 
 type Props = {
-    onClick(e: MouseEvent<HTMLElement>): void,
+    onClick(e: React.MouseEvent<HTMLElement>): void,
     className?: string,
 }
 
-const Button: FunctionComponent<Props> = (props) => (
+const Button: React.FunctionComponent<Props> = (props) => (
     <button className={props.className} onClick={props.onClick}>{props.children}</button>
 )
 

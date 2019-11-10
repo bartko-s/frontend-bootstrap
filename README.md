@@ -2,12 +2,13 @@ Another Webpack v.4 Frontend Bootstrap
 ==================================
 
 - TypeScript
+- React
+- React Styled Components
+- React Router
 - Webpack
 - Webpack Dev Server
 - Sass
-- React
 - Autoprefixer
-- Styled Components
 - and much more
 
 

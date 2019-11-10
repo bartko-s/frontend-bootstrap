@@ -1,7 +1,15 @@
 import * as React from 'react';
 import {hot} from 'react-hot-loader';
-import Minion from './Minion';
+import Minion from './containers/Minion';
 import styled from 'styled-components'
+import Menu from "./components/Menu"
+import Homepage from "./containers/Homepage"
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from 'react-router-dom'
+import PageNotFound from "./containers/PageNotFound"
 
 
 const ContentContainer = styled.div`
@@ -9,11 +17,22 @@ const ContentContainer = styled.div`
 `
 
 const App = () => (
-    <ContentContainer>
-        <h1>Great React works.</h1>
-        <Minion/>
-        <Minion speed={2500}/>
-    </ContentContainer>
+    <Router>
+        <ContentContainer>
+            <Menu/>
+            <Switch>
+                <Route path="/minions">
+                    <Minion/>
+                </Route>
+                <Route exact path="/">
+                    <Homepage/>
+                </Route>
+                <Route path="*">
+                    <PageNotFound/>
+                </Route>
+            </Switch>
+        </ContentContainer>
+    </Router>
 )
 
 export default hot(module)(App)

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {ReactNode} from 'react';
 import Button from "./Button"
 import styled from 'styled-components'
 
@@ -68,7 +67,7 @@ class Minion extends React.Component<Props, State> {
         }
     }
 
-    render(): ReactNode {
+    render(): React.ReactNode {
         return (
             <div>
                 {this.state.flipped ?
