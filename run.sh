@@ -6,19 +6,16 @@ select opt in "${options[@]}"
 do
     case $opt in
         "development")
-            docker-compose -f ./docker-compose-production.yml -f ./docker-compose-development.yml build \
-            && docker-compose -f ./docker-compose-production.yml -f ./docker-compose-development.yml up \
-            && exit
+            docker-compose -f ./docker-compose-production.yml -f ./docker-compose-development.yml up --build
+            break
             ;;
         "production")
-            docker-compose -f ./docker-compose-production.yml build \
-            && docker-compose -f ./docker-compose-production.yml up \
-            && exit
+            docker-compose -f ./docker-compose-production.yml up --build
+            break
             ;;
         "production build")
-            docker-compose -f ./docker-compose-production.yml -f ./docker-compose-build.yml build \
-            && docker-compose -f ./docker-compose-production.yml -f ./docker-compose-build.yml up \
-            && exit
+            docker-compose -f ./docker-compose-production.yml -f ./docker-compose-build.yml up --build
+            break
             ;;
         "quit")
             break
