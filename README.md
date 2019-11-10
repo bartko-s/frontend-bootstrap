@@ -9,7 +9,7 @@ Another Webpack v.4 Frontend Bootstrap
 - Webpack Dev Server
 - Sass
 - Autoprefixer
-- and much more
+- PM2 node process manager
 
 
 How to run development server

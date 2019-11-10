@@ -4,16 +4,13 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "run-server": "yarn install && node app.js",
-    "run-dev-server": "yarn install && nodemon app.js",
+    "run-server": "yarn install && pm2-runtime pm2.config.yml",
+    "run-dev-server": "yarn install && pm2-dev pm2.config.yml",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
-  },
-  "devDependencies": {
-    "nodemon": "^1.19.4"
   }
 }
