@@ -10,6 +10,7 @@ Another Webpack v.4 Frontend Bootstrap
 - Sass
 - Autoprefixer
 - PM2 node process manager
+- Docker
 
 
 How to run development server
