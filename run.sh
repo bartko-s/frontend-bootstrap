@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 PS3='Please select action: '
-options=("development" "production" "production build" "quit")
+options=("development" "production" "production build" "connect to browser container" "connect to server container" "quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -15,6 +15,14 @@ do
             ;;
         "production build")
             docker-compose -f ./docker-compose-production.yml -f ./docker-compose-build.yml up --build
+            break
+            ;;
+        "connect to browser container")
+            docker-compose -f ./docker-compose-production.yml exec node-browser bash
+            break
+            ;;
+        "connect to server container")
+            docker-compose -f ./docker-compose-production.yml exec node-server bash
             break
             ;;
         "quit")
