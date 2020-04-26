@@ -1,4 +1,5 @@
 {
+  "private": true,
   "scripts": {
     "dev": "yarn install && webpack-dev-server --mode=development",
     "build": "yarn install && webpack --progress --hide-modules --mode=production"
