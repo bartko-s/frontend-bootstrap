@@ -1,13 +1,9 @@
 import * as path from 'path'
 import * as webpack from 'webpack'
 import * as webpackDevServer from 'webpack-dev-server'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import autoprefixer from 'autoprefixer'
 import {CleanWebpackPlugin} from 'clean-webpack-plugin'
 import cssnano from 'cssnano'
-
-const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default;
-const styledComponentsTransformer = createStyledComponentsTransformer();
 
 const protocol: 'https' | 'http' = 'http';
 const serverUrl: string = '0.0.0.0';
@@ -15,6 +11,7 @@ const port: number = 8080;
 const publicPath: string = "/static/build/";
 const buildPath: string = path.join(__dirname, 'static/build');
 
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 
 function postCssLoader(isDevelopment: boolean): webpack.Loader {
     return {
@@ -24,7 +21,7 @@ function postCssLoader(isDevelopment: boolean): webpack.Loader {
             plugins: function () {
                 return isDevelopment ? [
                     autoprefixer()
-                ]: [
+                ] : [
                     autoprefixer(),
                     cssnano()
                 ]
@@ -37,7 +34,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
     return {
         mode: isDevelopment ? 'development' : 'production',
         cache: isDevelopment,
-        devtool: isDevelopment ? 'eval-source-map' : false,
+        devtool: isDevelopment ? 'inline-source-map' : false,
         entry: {
             index: [path.join(__dirname, 'static/app.js')],
         },
@@ -52,30 +49,74 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                 {
                     test: /\.(t|j)sx?$/,
                     exclude: /node_modules/,
-                    loader: 'ts-loader',
-                    options: isDevelopment ? {
-                        "getCustomTransformers": () => ({ before: [styledComponentsTransformer] }),
-                    } : {
+                    loader: "babel-loader",
+                    options: {
+                        "presets": [
+                            "@babel/preset-env",
+                            [
+                                "@babel/preset-react",
+                                {
+                                    development: isDevelopment,
+                                },
+                            ],
+                            "@babel/preset-typescript",
+                        ],
+                        "plugins": [
+                            "transform-class-properties",
+                            [
+                                "babel-plugin-styled-components",
+                                {
+                                    "displayName": isDevelopment,
+                                }
+                            ],
+                        ]
                     }
                 },
                 {
-                    test: /\.js$/,
+                    test: /\.(t|j)sx?$/,
                     loader: 'source-map-loader',
                     enforce: 'pre'
                 },
                 {
-                    test: /\.(css|scss)$/,
+                    test: /\.(css|scss|sass)$/,
                     use: isDevelopment ?
                         [
-                            'style-loader',
+                            {
+                                loader: ExtractCssChunks.loader,
+                                options: {
+                                    publicPath: buildPath,
+                                    hmr: true,
+                                    reloadAll: true,
+                                }
+                            },
                             {loader: 'css-loader', options: {sourceMap: true}},
                             postCssLoader(isDevelopment),
-                            {loader: 'sass-loader', options: {sourceMap: true}}]
-                        : [
-                            MiniCssExtractPlugin.loader,
+                            {
+                                loader: 'sass-loader',
+                                options: {
+                                    sourceMap: true,
+                                    sassOptions: {
+                                        outputStyle: 'compressed',
+                                    },
+                                }
+                            }
+                        ] : [
+                            {
+                                loader: ExtractCssChunks.loader,
+                                options: {
+                                    publicPath: buildPath,
+                                }
+                            },
                             {loader: 'css-loader'},
                             postCssLoader(isDevelopment),
-                            {loader: 'sass-loader'}
+                            {
+                                loader: 'sass-loader',
+                                options: {
+                                    sassOptions: {
+                                        outputStyle: 'compressed',
+                                    },
+                                }
+                            }
                         ]
                 },
                 {
@@ -114,11 +155,14 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
             [
                 new CleanWebpackPlugin(),
                 new webpack.HotModuleReplacementPlugin(),
+                new ExtractCssChunks({
+                    filename: "[name].styles.css"
+                })
             ] : [
                 new CleanWebpackPlugin(),
-                new MiniCssExtractPlugin({
+                new ExtractCssChunks({
                     filename: "[name].styles.css"
-                }),
+                })
             ],
         devServer: isDevelopment ? {
             proxy: {
