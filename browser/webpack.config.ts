@@ -84,7 +84,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                             {
                                 loader: ExtractCssChunks.loader,
                                 options: {
-                                    publicPath: buildPath,
+                                    publicPath: publicPath,
                                     hmr: true,
                                     reloadAll: true,
                                 }
@@ -104,7 +104,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                             {
                                 loader: ExtractCssChunks.loader,
                                 options: {
-                                    publicPath: buildPath,
+                                    publicPath: publicPath,
                                 }
                             },
                             {loader: 'css-loader'},
