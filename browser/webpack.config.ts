@@ -135,21 +135,9 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
         },
         output: {
             filename: '[name].bundle.js',
+            chunkFilename: '[id].bundle.[chunkhash].js',
             path: buildPath,
             publicPath: isDevelopment ? protocol+'://'+serverUrl+':'+port+publicPath : publicPath
-        },
-        optimization: {
-            usedExports: true,
-            splitChunks: {
-                cacheGroups: {
-                    vendor: {
-                        test: /[\\/]node_modules[\\/]/,
-                        name: "vendor",
-                        chunks: "all",
-                        enforce: true,
-                    }
-                }
-            }
         },
         plugins: isDevelopment ?
             [
