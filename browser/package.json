@@ -34,7 +34,7 @@
     "extract-css-chunks-webpack-plugin": "^4.7.5",
     "file-loader": "^6.0.0",
     "node-sass": "^4.14.1",
-    "postcss-loader": "^3.0.0",
+    "postcss-loader": "^4.0.0",
     "react-hot-loader": "^4.12.21",
     "sass-loader": "^10.0.1",
     "source-map-loader": "^1.0.2",
