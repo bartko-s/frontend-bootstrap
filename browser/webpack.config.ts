@@ -19,14 +19,12 @@ function postCssLoader(isDevelopment: boolean): webpack.Loader {
         options: {
             sourceMap: isDevelopment,
             postcssOptions: {
-                plugins: function () {
-                    return isDevelopment ? [
-                        autoprefixer()
-                    ] : [
-                        autoprefixer(),
-                        cssnano()
-                    ]
-                }
+                plugins: isDevelopment ? [
+                    autoprefixer()
+                ] : [
+                    autoprefixer(),
+                    cssnano()
+                ]
             }
         }
     }
