@@ -62,6 +62,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                             "@babel/preset-typescript",
                         ],
                         "plugins": [
+                            "@babel/plugin-transform-runtime",
                             "transform-class-properties",
                             [
                                 "babel-plugin-styled-components",
