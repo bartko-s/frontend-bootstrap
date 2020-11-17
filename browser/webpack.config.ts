@@ -36,7 +36,10 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
         cache: isDevelopment,
         devtool: isDevelopment ? 'inline-source-map' : false,
         entry: {
-            index: [path.join(__dirname, 'static/app.js')],
+            index: [
+                'react-hot-loader/patch',
+                path.join(__dirname, 'static/app.js')
+            ],
         },
         resolve: {
             extensions: ['*', '.ts', '.tsx', '.js', '.json', '.jsx'],
@@ -44,7 +47,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                 'react-dom': isDevelopment ? '@hot-loader/react-dom': 'react-dom'
             }
         },
-        target: isDevelopment ? 'web' : 'browserslist',
+        target: isDevelopment ? 'web' : 'browserslist', // upravit ked bude fix na https://github.com/webpack/webpack-dev-server/issues/2758
         module: {
             rules: [
                 {
@@ -63,6 +66,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                             "@babel/preset-typescript",
                         ],
                         "plugins": [
+                            "react-hot-loader/babel",
                             "@babel/plugin-transform-runtime",
                             "transform-class-properties",
                             [

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {hot} from 'react-hot-loader';
+import {hot} from 'react-hot-loader/root';
 import Minion from './containers/Minion';
 import styled from 'styled-components'
 import Menu from "./components/Menu"
@@ -35,4 +35,4 @@ const App = () => (
     </Router>
 )
 
-export default hot(module)(App)
+export default hot(App)
