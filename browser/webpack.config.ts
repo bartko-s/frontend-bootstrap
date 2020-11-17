@@ -44,6 +44,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                 'react-dom': isDevelopment ? '@hot-loader/react-dom': 'react-dom'
             }
         },
+        target: isDevelopment ? 'web' : 'browserslist',
         module: {
             rules: [
                 {
