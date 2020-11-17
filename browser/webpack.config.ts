@@ -159,15 +159,6 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                 })
             ],
         devServer: isDevelopment ? {
-            proxy: {
-                ['!'+publicPath+'*']: {
-                    target: protocol+'://node-server:8082',
-                    secure: false
-                }
-            },
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            },
             host: serverUrl,
             overlay: true,
             publicPath: protocol+'://'+serverUrl+':'+port+publicPath,

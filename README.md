@@ -17,7 +17,7 @@ How to run development server
 --------------------
 - run docker with console command `./run.sh`
 - select `development`
-- open browser [http://0.0.0.0:8080](http://0.0.0.0:8080)
+- open browser [http://localhost](http://localhost)
 - build something beautiful
 
 How to build
@@ -29,4 +29,4 @@ How to run production server
 --------------------
 - run docker with console command `./run.sh`
 - select `production`
-- open browser [http://0.0.0.0](http://0.0.0.0)
+- open browser [http://localhost](http://localhost)
