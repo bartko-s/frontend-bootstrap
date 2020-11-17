@@ -1,4 +1,4 @@
-Another Webpack v.4 Frontend Bootstrap
+Another Webpack v.5 Frontend Bootstrap
 ==================================
 
 - TypeScript

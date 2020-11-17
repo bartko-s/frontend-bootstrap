@@ -13,7 +13,7 @@ const buildPath: string = path.join(__dirname, 'static/build');
 
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 
-function postCssLoader(isDevelopment: boolean): webpack.Loader {
+function postCssLoader(isDevelopment: boolean): webpack.RuleSetUseItem {
     return {
         loader: 'postcss-loader',
         options: {
