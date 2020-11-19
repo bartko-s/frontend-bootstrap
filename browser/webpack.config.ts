@@ -159,6 +159,9 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                 })
             ],
         devServer: isDevelopment ? {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            },
             host: serverUrl,
             overlay: true,
             publicPath: protocol+'://'+serverUrl+':'+port+publicPath,
