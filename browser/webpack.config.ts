@@ -162,6 +162,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
             headers: {
                 'Access-Control-Allow-Origin': '*',
             },
+            disableHostCheck: true,
             host: serverUrl,
             overlay: true,
             publicPath: protocol+'://'+serverUrl+':'+port+publicPath,
