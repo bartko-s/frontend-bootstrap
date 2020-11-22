@@ -150,7 +150,8 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                 new CleanWebpackPlugin(),
                 new webpack.HotModuleReplacementPlugin(),
                 new ExtractCssChunks({
-                    filename: "[name].styles.css"
+                    filename: "[name].styles.css",
+                    chunkFilename: '[id].styles-chunk.css',
                 })
             ] : [
                 new CleanWebpackPlugin(),
