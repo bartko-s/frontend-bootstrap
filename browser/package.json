@@ -5,7 +5,8 @@
     "build": "yarn install && webpack --progress --mode=production"
   },
   "browserslist": [
-    "> 1%",
+    "> 0.2%",
+    "not dead",
     "last 2 versions"
   ],
   "devDependencies": {
