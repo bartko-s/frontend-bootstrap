@@ -11,7 +11,7 @@ const port: number = 8080;
 const publicPath: string = "/static/build/";
 const buildPath: string = path.join(__dirname, 'static/build');
 
-const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 function postCssLoader(isDevelopment: boolean): webpack.RuleSetUseItem {
     return {
@@ -88,11 +88,9 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                     use: isDevelopment ?
                         [
                             {
-                                loader: ExtractCssChunks.loader,
+                                loader: MiniCssExtractPlugin.loader,
                                 options: {
                                     publicPath: publicPath,
-                                    hmr: true,
-                                    reloadAll: true,
                                 }
                             },
                             {loader: 'css-loader', options: {sourceMap: true}},
@@ -108,7 +106,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                             }
                         ] : [
                             {
-                                loader: ExtractCssChunks.loader,
+                                loader: MiniCssExtractPlugin.loader,
                                 options: {
                                     publicPath: publicPath,
                                 }
@@ -149,15 +147,16 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
             [
                 new CleanWebpackPlugin(),
                 new webpack.HotModuleReplacementPlugin(),
-                new ExtractCssChunks({
+                new MiniCssExtractPlugin({
                     filename: "[name].styles.css",
                     chunkFilename: '[id].styles-chunk.css',
-                })
+                }),
             ] : [
                 new CleanWebpackPlugin(),
-                new ExtractCssChunks({
-                    filename: "[name].styles.css"
-                })
+                new MiniCssExtractPlugin({
+                    filename: "[name].styles.css",
+                    chunkFilename: '[id].styles-chunk.css',
+                }),
             ],
         devServer: isDevelopment ? {
             headers: {
