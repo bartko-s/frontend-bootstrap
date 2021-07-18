@@ -125,15 +125,11 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                 },
                 {
                     test: /\.(gif|jpg|jpeg|png|svg)$/,
-                    use: [{
-                        loader: 'file-loader',
-                    }]
+                    type: 'asset',
                 },
                 {
                     test: /\.(woff|woff2|eot|ttf|otf)$/,
-                    use: [{
-                        loader: 'file-loader',
-                    }]
+                    type: 'asset',
                 }
             ],
         },
