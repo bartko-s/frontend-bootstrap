@@ -4,6 +4,8 @@ import * as webpackDevServer from 'webpack-dev-server'
 import autoprefixer from 'autoprefixer'
 import {CleanWebpackPlugin} from 'clean-webpack-plugin'
 import cssnano from 'cssnano'
+import {WebpackManifestPlugin} from 'webpack-manifest-plugin'
+
 
 const protocol: 'https' | 'http' = 'http';
 const serverUrl: string = '0.0.0.0';
@@ -146,20 +148,14 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
             path: buildPath,
             publicPath: publicPath,
         },
-        plugins: isDevelopment ?
-            [
-                new CleanWebpackPlugin(),
-                new MiniCssExtractPlugin({
-                    filename: "[name].styles.css",
-                    chunkFilename: '[id].styles-chunk.css',
-                }),
-            ] : [
-                new CleanWebpackPlugin(),
-                new MiniCssExtractPlugin({
-                    filename: "[name].styles.css",
-                    chunkFilename: '[id].styles-chunk.css',
-                }),
-            ],
+        plugins: [
+            new CleanWebpackPlugin(),
+            new WebpackManifestPlugin({}),
+            new MiniCssExtractPlugin({
+                filename: "[name].styles.css",
+                chunkFilename: '[id].styles-chunk.css',
+            }),
+        ],
         devServer: isDevelopment ? {
             headers: {
                 'Access-Control-Allow-Origin': '*',
