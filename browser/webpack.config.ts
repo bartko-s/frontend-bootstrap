@@ -47,7 +47,6 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                 'react-dom': isDevelopment ? '@hot-loader/react-dom': 'react-dom'
             }
         },
-        target: isDevelopment ? 'web' : 'browserslist', // upravit ked bude fix na https://github.com/webpack/webpack-dev-server/issues/2758
         module: {
             rules: [
                 {
@@ -85,6 +84,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                 },
                 {
                     test: /\.(css|scss|sass)$/,
+                    exclude: /node_modules/,
                     use: isDevelopment ?
                         [
                             {
@@ -93,7 +93,12 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                                     publicPath: publicPath,
                                 }
                             },
-                            {loader: 'css-loader', options: {sourceMap: true}},
+                            {
+                                loader: 'css-loader',
+                                options: {
+                                    sourceMap: true
+                                }
+                            },
                             postCssLoader(isDevelopment),
                             {
                                 loader: 'sass-loader',
@@ -111,7 +116,9 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                                     publicPath: publicPath,
                                 }
                             },
-                            {loader: 'css-loader'},
+                            {
+                                loader: 'css-loader'
+                            },
                             postCssLoader(isDevelopment),
                             {
                                 loader: 'sass-loader',
@@ -137,12 +144,11 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
             filename: '[name].bundle.js',
             chunkFilename: '[id].bundle.[chunkhash].js',
             path: buildPath,
-            publicPath: isDevelopment ? protocol+'://'+serverUrl+':'+port+publicPath : publicPath
+            publicPath: publicPath,
         },
         plugins: isDevelopment ?
             [
                 new CleanWebpackPlugin(),
-                new webpack.HotModuleReplacementPlugin(),
                 new MiniCssExtractPlugin({
                     filename: "[name].styles.css",
                     chunkFilename: '[id].styles-chunk.css',
@@ -158,13 +164,17 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
             headers: {
                 'Access-Control-Allow-Origin': '*',
             },
-            disableHostCheck: true,
+            allowedHosts: 'all',
             host: serverUrl,
-            overlay: true,
-            publicPath: protocol+'://'+serverUrl+':'+port+publicPath,
             hot: true,
             port: port,
-            https: protocol === 'https'
+            https: protocol === 'https',
+            client: {
+                overlay: true
+            },
+            devMiddleware: {
+                writeToDisk: true,
+            }
         } : {}
     };
 }

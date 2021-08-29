@@ -1,6 +1,5 @@
 import express from 'express'
 import path from 'path'
-import {createProxyMiddleware} from 'http-proxy-middleware';
 import expressHandlebars from 'express-handlebars'
 
 const isProduction =  process.env.NODE_ENV === 'production'
@@ -23,13 +22,7 @@ app.engine('handlebars', expressHandlebars());
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, '/views'));
 
-if(isProduction) {
-    app.use('/static', express.static('../browser/static'));
-} else {
-    app.use('/static', createProxyMiddleware({
-        target: 'http://node-browser:8080',
-    }));
-}
+app.use('/static', express.static('../browser/static'));
 
 app.get('*', (req, res) => {
     return res.render('index', {
