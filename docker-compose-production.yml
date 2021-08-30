@@ -6,7 +6,7 @@ services:
     build: docker/node-server
     command: yarn --cwd "./server/" run-server
     ports:
-      - 80:8082
+      - 443:8082
     volumes:
       - .:/app/
 

@@ -5,9 +5,9 @@ import autoprefixer from 'autoprefixer'
 import {CleanWebpackPlugin} from 'clean-webpack-plugin'
 import cssnano from 'cssnano'
 import {WebpackManifestPlugin} from 'webpack-manifest-plugin'
+import * as fs from "fs"
 
 
-const protocol: 'https' | 'http' = 'http';
 const serverUrl: string = '0.0.0.0';
 const port: number = 8080;
 const publicPath: string = "/static/build/";
@@ -164,7 +164,11 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
             host: serverUrl,
             hot: true,
             port: port,
-            https: protocol === 'https',
+            http2: true,
+            https: {
+                key: fs.readFileSync('../docker/cert/key.pem'),
+                cert: fs.readFileSync('../docker/cert/certificate.pem'),
+            },
             client: {
                 overlay: true
             },

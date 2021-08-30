@@ -1,7 +1,11 @@
 import express from 'express'
 import path from 'path'
 import expressHandlebars from 'express-handlebars'
+import * as fs from "fs"
+import https from 'https'
 
+const privateKey = fs.readFileSync('../docker/cert/key.pem')
+const privateCertificate = fs.readFileSync('../docker/cert/certificate.pem')
 const isProduction =  process.env.NODE_ENV === 'production'
 
 const getAssetVersion = (function() {
@@ -31,4 +35,9 @@ app.get('*', (req, res) => {
     });
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+const httpsServer = https.createServer({
+    key: privateKey,
+    cert: privateCertificate
+}, app)
+
+httpsServer.listen(port)
