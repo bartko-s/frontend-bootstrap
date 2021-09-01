@@ -41,7 +41,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
             index: [
                 'react-hot-loader/patch',
                 path.join(__dirname, 'static/app.js')
-            ],
+            ]
         },
         resolve: {
             extensions: ['*', '.ts', '.tsx', '.js', '.json', '.jsx'],
