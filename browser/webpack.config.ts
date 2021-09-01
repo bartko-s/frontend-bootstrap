@@ -41,7 +41,8 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
             index: [
                 'react-hot-loader/patch',
                 path.join(__dirname, 'static/app.js')
-            ]
+            ],
+            'css-vendor': path.join(__dirname, 'static/css-vendor/main.scss')
         },
         resolve: {
             extensions: ['*', '.ts', '.tsx', '.js', '.json', '.jsx'],
@@ -142,6 +143,9 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                 }
             ],
         },
+        optimization: {
+            runtimeChunk: "single"
+        },
         output: {
             filename: '[name].bundle.js',
             chunkFilename: '[id].bundle.[chunkhash].js',
@@ -170,7 +174,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                 cert: fs.readFileSync('../docker/cert/certificate.pem'),
             },
             client: {
-                overlay: true
+                overlay: true,
             },
             devMiddleware: {
                 writeToDisk: true,

@@ -1,7 +1,7 @@
 "use strict";
 
 // global css
-require("./css/main.css");
+require("./css/main.scss");
 
 console.log("Hi");
 
