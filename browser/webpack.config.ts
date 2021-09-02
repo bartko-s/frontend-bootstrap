@@ -36,7 +36,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
     return {
         mode: isDevelopment ? 'development' : 'production',
         cache: isDevelopment,
-        devtool: isDevelopment ? 'inline-source-map' : false,
+        devtool: false,
         entry: {
             index: [
                 'react-hot-loader/patch',
@@ -152,7 +152,15 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
             path: buildPath,
             publicPath: publicPath,
         },
-        plugins: [
+        plugins: isDevelopment ? [
+            new CleanWebpackPlugin(),
+            new WebpackManifestPlugin({}),
+            new MiniCssExtractPlugin({
+                filename: "[name].styles.css",
+                chunkFilename: '[id].styles-chunk.css',
+            }),
+            new webpack.SourceMapDevToolPlugin({}),
+        ] : [
             new CleanWebpackPlugin(),
             new WebpackManifestPlugin({}),
             new MiniCssExtractPlugin({
