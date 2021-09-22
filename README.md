@@ -15,18 +15,9 @@ Another Webpack v.5 Frontend Bootstrap
 
 How to run development server
 --------------------
+- install ssl root [certificate](./docker/cert/README.md)
 - run docker with console command `./run.sh`
 - select `development`
-- open browser [http://localhost](http://localhost)
+- open browser [https://localhost.local](https://localhost.local)
 - build something beautiful
 
-How to build
---------------------
-- run docker with console command `./run.sh`
-- select `production build`
-
-How to run production server
---------------------
-- run docker with console command `./run.sh`
-- select `production`
-- open browser [http://localhost](http://localhost)

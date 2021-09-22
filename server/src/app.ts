@@ -4,8 +4,8 @@ import expressHandlebars from 'express-handlebars'
 import * as fs from "fs"
 import https from 'https'
 
-const privateKey = fs.readFileSync('../docker/cert/key.pem')
-const privateCertificate = fs.readFileSync('../docker/cert/certificate.pem')
+const privateKey = fs.readFileSync('../docker/cert/dockerDomain.key')
+const privateCertificate = fs.readFileSync('../docker/cert/dockerDomain.crt')
 const isProduction =  process.env.NODE_ENV === 'production'
 
 const getAssetVersion = (function() {
