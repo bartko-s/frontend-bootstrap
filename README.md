@@ -18,6 +18,6 @@ How to run development server
 - install ssl root [certificate](./docker/cert/README.md)
 - run docker with console command `./run.sh`
 - select `development`
-- open browser [https://localhost.local](https://localhost.local)
+- open browser [https://localhost.localdomain](https://localhost.localdomain)
 - build something beautiful
 

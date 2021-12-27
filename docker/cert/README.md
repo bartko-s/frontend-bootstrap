@@ -1,6 +1,6 @@
 # Generate ssl certificate
 
-1. Run commands (as common name use *.local)
+1. Run commands (as common name use *.localdomain)
  
  - `openssl genrsa -des3 -out dockerDomain.key 2048`
  - `openssl req -newkey rsa:2048 -nodes -keyout dockerDomain.key -out dockerDomain.csr`
