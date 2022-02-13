@@ -6,8 +6,7 @@ import Menu from "./components/Menu"
 import Homepage from "./containers/Homepage"
 import {
     BrowserRouter as Router,
-    Switch,
-    Route
+    Route, Routes
 } from 'react-router-dom'
 import PageNotFound from "./containers/PageNotFound"
 
@@ -20,17 +19,11 @@ const App = () => (
     <Router>
         <ContentContainer>
             <Menu/>
-            <Switch>
-                <Route path="/minions">
-                    <Minion/>
-                </Route>
-                <Route exact path="/">
-                    <Homepage/>
-                </Route>
-                <Route path="*">
-                    <PageNotFound/>
-                </Route>
-            </Switch>
+            <Routes>
+                <Route path="/minions" element={<Minion/>} />
+                <Route path="/" element={<Homepage/>} />
+                <Route path="*" element={<PageNotFound/>} />
+            </Routes>
         </ContentContainer>
     </Router>
 )
