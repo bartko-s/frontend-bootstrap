@@ -1,6 +1,6 @@
 import express from 'express'
 import path from 'path'
-import expressHandlebars from 'express-handlebars'
+import {engine} from 'express-handlebars'
 import * as fs from "fs"
 import https from 'https'
 
@@ -22,7 +22,7 @@ const getAssetVersion = (function() {
 const app: express.Application = express();
 const port = 8082;
 
-app.engine('handlebars', expressHandlebars());
+app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, '/views'));
 
