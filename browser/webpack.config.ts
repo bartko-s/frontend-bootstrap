@@ -183,10 +183,12 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
             host: serverUrl,
             hot: true,
             port: port,
-            http2: true,
-            https: {
-                key: fs.readFileSync('../docker/cert/dockerDomain.key'),
-                cert: fs.readFileSync('../docker/cert/dockerDomain.crt'),
+            server: {
+                type: 'https',
+                options: {
+                    key: fs.readFileSync('../docker/cert/dockerDomain.key'),
+                    cert: fs.readFileSync('../docker/cert/dockerDomain.crt'),
+                }
             },
             client: {
                 overlay: true,
