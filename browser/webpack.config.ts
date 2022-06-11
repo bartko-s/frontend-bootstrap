@@ -6,6 +6,7 @@ import {CleanWebpackPlugin} from 'clean-webpack-plugin'
 import cssnano from 'cssnano'
 import {WebpackManifestPlugin} from 'webpack-manifest-plugin'
 import * as fs from "fs"
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 
 const serverUrl: string = '0.0.0.0';
@@ -39,16 +40,12 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
         devtool: false,
         entry: {
             index: [
-                'react-hot-loader/patch',
                 path.join(__dirname, 'static/app.js')
             ],
             'css-vendor': path.join(__dirname, 'static/css-vendor/main.scss')
         },
         resolve: {
             extensions: ['*', '.ts', '.tsx', '.js', '.json', '.jsx'],
-            alias: {
-                'react-dom': isDevelopment ? '@hot-loader/react-dom': 'react-dom'
-            }
         },
         module: {
             rules: [
@@ -67,8 +64,17 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                             ],
                             "@babel/preset-typescript",
                         ],
-                        "plugins": [
-                            "react-hot-loader/babel",
+                        "plugins": isDevelopment ? [
+                            "@babel/plugin-transform-runtime",
+                            "transform-class-properties",
+                            [
+                                "babel-plugin-styled-components",
+                                {
+                                    "displayName": isDevelopment,
+                                }
+                            ],
+                            isDevelopment ? "react-refresh/babel" : false
+                        ] : [
                             "@babel/plugin-transform-runtime",
                             "transform-class-properties",
                             [
@@ -153,6 +159,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
             publicPath: publicPath,
         },
         plugins: isDevelopment ? [
+            new ReactRefreshWebpackPlugin(),
             new CleanWebpackPlugin(),
             new WebpackManifestPlugin({}),
             new MiniCssExtractPlugin({

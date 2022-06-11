@@ -1,11 +1,10 @@
 import * as React from 'react';
-import {hot} from 'react-hot-loader/root';
 import Minion from './containers/Minion';
 import styled from 'styled-components'
 import Menu from "./components/Menu"
 import Homepage from "./containers/Homepage"
 import {
-    BrowserRouter as Router,
+    BrowserRouter,
     Route, Routes
 } from 'react-router-dom'
 import PageNotFound from "./containers/PageNotFound"
@@ -16,16 +15,16 @@ const ContentContainer = styled.div`
 `
 
 const App = () => (
-    <Router>
-        <ContentContainer>
-            <Menu/>
-            <Routes>
-                <Route path="/minions" element={<Minion/>} />
-                <Route path="/" element={<Homepage/>} />
-                <Route path="*" element={<PageNotFound/>} />
-            </Routes>
-        </ContentContainer>
-    </Router>
+    <BrowserRouter>
+         <ContentContainer>
+             <Menu/>
+             <Routes>
+                 <Route path="/minions" element={<Minion/>} />
+                 <Route path="/" element={<Homepage/>} />
+                 <Route path="*" element={<PageNotFound/>} />
+             </Routes>
+         </ContentContainer>
+    </BrowserRouter>
 )
 
-export default hot(App)
+export default App
