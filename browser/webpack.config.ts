@@ -73,7 +73,7 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
                                     "displayName": isDevelopment,
                                 }
                             ],
-                            isDevelopment ? "react-refresh/babel" : false
+                            "react-refresh/babel"
                         ] : [
                             "@babel/plugin-transform-runtime",
                             "transform-class-properties",
