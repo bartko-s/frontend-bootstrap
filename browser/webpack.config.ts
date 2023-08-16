@@ -47,6 +47,9 @@ function buildConfig(isDevelopment: boolean): webpack.Configuration & webpackDev
         resolve: {
             extensions: ['*', '.ts', '.tsx', '.js', '.json', '.jsx'],
         },
+        ignoreWarnings: [
+            /node_modules\/bootstrap\/scss/i
+        ],
         module: {
             rules: [
                 {
