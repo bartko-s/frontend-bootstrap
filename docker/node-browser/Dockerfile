@@ -1,7 +1,5 @@
 FROM node:18
 
-RUN apt-get update
-
 RUN mkdir /app
 WORKDIR /app/browser/
 
